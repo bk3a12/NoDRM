@@ -34,8 +34,9 @@ class WvDecrypt(object):
                               deviceconfig.DeviceConfig(deviceconfig.device_chromecdm_2209))
     
     def start_process(self):
-        keysR = self.cdm.get_keys(self.session)
-        return keysR
+        # keysR = self.cdm.get_keys(self.session)
+        # return keysR
+        return [f'{k.kid.hex()}:{k.key.hex()}' for k in self.cdm.get_keys(self.session) if k.type == 'CONTENT']
 
     def set_certificate(self,cert):
         self.cdm.set_service_certificate(self.session,cert)
